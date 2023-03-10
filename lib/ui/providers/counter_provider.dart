@@ -1,19 +1,31 @@
 import 'package:flutter/widgets.dart';
 import '../../data/repo/repository.dart';
 
-class CounterProvider with ChangeNotifier {
-  int _counter = 0;
-  int get getCounter => _counter;
+class TappedProvider with ChangeNotifier {
+  int index = 0;
+  List<String> displayElement = ['', '', '', '', '', '', '', '', ''];
+  int get getIndex => index;
+  List<String> get getdisplayElement => displayElement;
 
   var counterRepo = CounterRepository();
 
-  void incrementCounter() {
-    _counter = counterRepo.incrementCounter(_counter);
-    notifyListeners();
-  }
+  bool oTurn = false;
+  int filledBoxes = 0;
 
-  void decrementCounter() {
-    _counter = counterRepo.decrementCounter(_counter);
+  void tapped() {
+    if (oTurn && displayElement[index] == '') {
+      displayElement[index] = 'O';
+      filledBoxes++;
+    } else if (!oTurn && displayElement[index] == '') {
+      displayElement[index] = 'X';
+      filledBoxes++;
+    }
+    print(index);
+    print(oTurn);
+    print(displayElement);
+    oTurn = !oTurn;
+
     notifyListeners();
+    //_checkWinner();
   }
 }

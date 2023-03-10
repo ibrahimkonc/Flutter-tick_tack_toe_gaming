@@ -6,7 +6,7 @@ import 'package:tick_tack_toe_gaming/ui/view/home_page.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ListenableProvider<CounterProvider>(create: (_) => CounterProvider()),
+      ListenableProvider<TappedProvider>(create: (_) => TappedProvider()),
     ],
     child: const MyApp(),
   ));
@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blueGrey,
+      // ),
+      theme: ThemeData.dark(),
       home: const HomePage(),
     );
   }
