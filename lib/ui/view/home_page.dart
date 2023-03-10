@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/counter_provider.dart';
 
-int oScore = 0;
-int xScore = 0;
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -40,7 +37,7 @@ class HomePage extends StatelessWidget {
                                   : Colors.white),
                         ),
                         Text(
-                          xScore.toString(),
+                          tappedProvider.xScore.toString(),
                           style: const TextStyle(
                               fontSize: 20, color: Colors.white),
                         ),
@@ -60,7 +57,7 @@ class HomePage extends StatelessWidget {
                                     ? Colors.greenAccent
                                     : Colors.white)),
                         Text(
-                          oScore.toString(),
+                          tappedProvider.oScore.toString(),
                           style: const TextStyle(
                               fontSize: 20, color: Colors.white),
                         ),
