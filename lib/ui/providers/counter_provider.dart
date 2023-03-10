@@ -7,38 +7,52 @@ class TappedProvider with ChangeNotifier {
   int oScore = 0;
   int xScore = 0;
   String end = "";
+  bool oTurn = false;
+  int filledBoxes = 0;
 
   int get getIndex => index;
   int get getoScore => oScore;
   int get getxScore => xScore;
   String get getSnd => end;
+  bool get getoTurn => oTurn;
+  int get getfilledBoxes => filledBoxes;
   List<String> get getdisplayElement => displayElement;
 
   var counterRepo = CheckWinnerRepository();
 
-  bool oTurn = false;
-  int filledBoxes = 0;
-
   void tapped() {
-    if (oTurn && displayElement[index] == '') {
-      displayElement[index] = 'O';
-      filledBoxes++;
-    } else if (!oTurn && displayElement[index] == '') {
-      displayElement[index] = 'X';
-      filledBoxes++;
-    }
+    if (filledBoxes <= 8 && displayElement[index] == '' && end.isEmpty) {
+      if (oTurn) {
+        displayElement[index] = 'O';
+        filledBoxes++;
+      } else if (!oTurn) {
+        displayElement[index] = 'X';
+        filledBoxes++;
+      }
 
-    oTurn = !oTurn;
-    String response = counterRepo.checkWinner(displayElement, filledBoxes);
-    if (response == "X") {
-      xScore++;
-    } else if (response == "O") {
-      oScore++;
-    } else {
-      end = "Oyun Bitti";
+      oTurn = !oTurn;
+      String response = counterRepo.checkWinner(displayElement, filledBoxes);
+      if (response == "X") {
+        xScore++;
+        end = "X oyuncu KAZANDI Oyun Bitti";
+      } else if (response == "O") {
+        oScore++;
+        end = "O oyuncu KAZANDI Oyun Bitti";
+      } else {
+        end = "";
+      }
     }
-
     notifyListeners();
-    //_checkWinner();
+  }
+
+  void clean(bool isClean) {
+    index = 0;
+    isClean ? oScore = 0 : null;
+    isClean ? xScore = 0 : null;
+    end = "";
+    displayElement = ['', '', '', '', '', '', '', '', ''];
+    oTurn = false;
+    filledBoxes = 0;
+    notifyListeners();
   }
 }

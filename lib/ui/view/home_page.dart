@@ -96,9 +96,45 @@ class HomePage extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              "${!tappedProvider.oTurn ? "X" : "O"} Kullanıcısı Oynuyor...",
-              style: const TextStyle(fontSize: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  tappedProvider.end.isEmpty
+                      ? "${!tappedProvider.oTurn ? "X" : "O"} Kullanıcısı Oynuyor..."
+                      : tappedProvider.end,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                const SizedBox(height: 50),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(10),
+                      backgroundColor: Colors.green),
+                  onPressed: () {
+                    tappedProvider.clean(false);
+                  }, //() => counterProvider.incrementCounter(),
+                  label: const Text(
+                    "Paneli temizle",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  icon: const Icon(Icons.refresh),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(10),
+                      backgroundColor: const Color.fromARGB(255, 175, 76, 76)),
+                  onPressed: () {
+                    tappedProvider.clean(true);
+                  }, //() => counterProvider.incrementCounter(),
+                  label: const Text(
+                    "Oyunu Sıfırla",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  icon: const Icon(Icons.refresh),
+                ),
+                const Spacer(),
+              ],
             ),
           )
         ],
