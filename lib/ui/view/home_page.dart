@@ -100,9 +100,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  tappedProvider.end.isEmpty
-                      ? "${!tappedProvider.oTurn ? "X" : "O"} Kullanıcısı Oynuyor..."
-                      : tappedProvider.end,
+                  "İŞLEM: ${tappedProvider.end.isEmpty ? "${!tappedProvider.oTurn ? "[ X ]" : "[ O ]"} Kullanıcısı Oynuyor..." : tappedProvider.end}",
                   style: const TextStyle(fontSize: 20),
                 ),
                 const SizedBox(height: 50),

@@ -34,10 +34,10 @@ class TappedProvider with ChangeNotifier {
       String response = counterRepo.checkWinner(displayElement, filledBoxes);
       if (response == "X") {
         xScore++;
-        end = "X oyuncu KAZANDI Oyun Bitti";
+        end = "[ X ] KAZANDI Oyun Bitti...";
       } else if (response == "O") {
         oScore++;
-        end = "O oyuncu KAZANDI Oyun Bitti";
+        end = "[ O ] KAZANDI Oyun Bitti...";
       } else {
         end = "";
       }
