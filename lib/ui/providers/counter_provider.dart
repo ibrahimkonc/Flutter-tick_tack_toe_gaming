@@ -9,7 +9,12 @@ class TappedProvider with ChangeNotifier {
   String end = "";
   bool oTurn = false;
   int filledBoxes = 0;
+  double defaulWidth = 0;
+  double changeWidth = 0;
+  bool isWidth = false;
+  int widthAddInterest = 86;
 
+  double get getDefaulWidth => defaulWidth;
   int get getIndex => index;
   int get getoScore => oScore;
   int get getxScore => xScore;
@@ -21,28 +26,36 @@ class TappedProvider with ChangeNotifier {
   var counterRepo = CheckWinnerRepository();
 
   void tapped() {
-    if (filledBoxes <= 8 && displayElement[index] == '' && end.isEmpty) {
-      if (oTurn) {
-        displayElement[index] = 'O';
-        filledBoxes++;
-      } else if (!oTurn) {
-        displayElement[index] = 'X';
-        filledBoxes++;
+    if (oScore <= 5 && xScore <= 5) {
+      if (!isWidth) {
+        changeWidth = defaulWidth;
+        isWidth = true;
       }
 
-      oTurn = !oTurn;
-      String response = counterRepo.checkWinner(displayElement, filledBoxes);
-      if (response == "X") {
-        xScore++;
-        end = "[ X ] KAZANDI Oyun Bitti...";
-      } else if (response == "O") {
-        oScore++;
-        end = "[ O ] KAZANDI Oyun Bitti...";
-      } else {
-        end = "";
+      if (filledBoxes <= 8 && displayElement[index] == '' && end.isEmpty) {
+        if (oTurn) {
+          displayElement[index] = 'O';
+          filledBoxes++;
+        } else if (!oTurn) {
+          displayElement[index] = 'X';
+          filledBoxes++;
+        }
+        oTurn = !oTurn;
+        String response = counterRepo.checkWinner(displayElement, filledBoxes);
+        if (response == "X") {
+          xScore++;
+          end = "[ X ] KAZANDI Oyun Bitti...";
+          changeWidth += widthAddInterest;
+        } else if (response == "O") {
+          oScore++;
+          end = "[ O ] KAZANDI Oyun Bitti...";
+          changeWidth -= widthAddInterest;
+        } else {
+          end = "";
+        }
       }
-    }
-    notifyListeners();
+      notifyListeners();
+    } else {}
   }
 
   void clean(bool isClean) {
