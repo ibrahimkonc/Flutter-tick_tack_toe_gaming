@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tick_tack_toe_gaming/ui/providers/counter_provider.dart';
+import 'package:tick_tack_toe_gaming/ui/providers/tapped_provider.dart';
 import 'package:tick_tack_toe_gaming/ui/view/home_page.dart';
+import 'package:tick_tack_toe_gaming/ui/view/loading_page.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.blueGrey,
       // ),
       theme: ThemeData.dark(),
-      home: const HomePage(),
+      home: const LoadingPage(),
     );
   }
 }

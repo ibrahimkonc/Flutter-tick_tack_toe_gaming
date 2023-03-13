@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import '../providers/counter_provider.dart';
+import 'package:tick_tack_toe_gaming/ui/view/home_page.dart';
+import '../providers/tapped_provider.dart';
 
 class EndGamingPage extends StatelessWidget {
   String data = "";
-
   // EndGamingPage(this.data);
   EndGamingPage({super.key, required this.data});
 
@@ -27,55 +28,76 @@ class EndGamingPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              child: LottieBuilder.asset("assets/lottie/stars-winner.json"),
+              height: 180,
+            ),
             Text(
-              data.replaceAll("Oyun Bitti...", ""),
+              data.isEmpty
+                  ? "Skor Tablosu"
+                  : data.replaceAll("Oyun Bitti...", ""),
               style: const TextStyle(fontSize: 30),
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(10),
+                  color: Color.fromARGB(157, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(width: 2, color: Colors.black)),
-              margin: const EdgeInsets.all(50),
-              padding: const EdgeInsets.all(30),
+              margin: const EdgeInsets.only(
+                top: 30,
+                bottom: 20,
+                left: 50,
+                right: 50,
+              ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("X Kullanıcısı Puanı: ",
-                          style: TextStyle(fontSize: 25)),
-                      Text(tappedProvider.xScore.toString(),
-                          style: const TextStyle(fontSize: 25))
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("X Kullanıcısı Puanı: ",
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Color.fromARGB(255, 3, 165, 0))),
+                        Text(tappedProvider.xScore.toString(),
+                            style: const TextStyle(
+                                fontSize: 25,
+                                color: Color.fromARGB(255, 3, 165, 0)))
+                      ],
+                    ),
                   ),
                   const Divider(
                     thickness: 5,
-                    color: Color.fromARGB(255, 255, 156, 149),
+                    color: Color.fromARGB(64, 51, 51, 51),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.only(bottom: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text("O Kullanıcısı Puanı: ",
-                            style: TextStyle(fontSize: 25)),
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Color.fromARGB(255, 187, 63, 63))),
                         Text(tappedProvider.oScore.toString(),
-                            style: const TextStyle(fontSize: 25))
+                            style: const TextStyle(
+                                fontSize: 25,
+                                color: Color.fromARGB(255, 187, 63, 63)))
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 0),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(10),
-                  backgroundColor: Colors.green),
+                  backgroundColor: Color.fromARGB(151, 7, 18, 167)),
               onPressed: () {
                 tappedProvider.clean(false);
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
               }, //() => counterProvider.incrementCounter(),
               label: const Text(
                 "Oynamaya Devam",
@@ -87,10 +109,11 @@ class EndGamingPage extends StatelessWidget {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(10),
-                  backgroundColor: const Color.fromARGB(255, 175, 76, 76)),
+                  backgroundColor: const Color.fromARGB(164, 255, 193, 7)),
               onPressed: () {
                 tappedProvider.clean(true);
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
               }, //() => counterProvider.incrementCounter(),
               label: const Text(
                 "Tekrar Oyna",

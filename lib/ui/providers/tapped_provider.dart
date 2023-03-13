@@ -12,7 +12,7 @@ class TappedProvider with ChangeNotifier {
   double defaulWidth = 0;
   double changeWidth = 0;
   bool isWidth = false;
-  int widthAddInterest = 86;
+  double widthAddInterest = 86;
 
   double get getDefaulWidth => defaulWidth;
   int get getIndex => index;
@@ -26,11 +26,11 @@ class TappedProvider with ChangeNotifier {
   var counterRepo = CheckWinnerRepository();
 
   void tapped() {
-    if (oScore <= 5 && xScore <= 5) {
-      if (!isWidth) {
-        changeWidth = defaulWidth;
-        isWidth = true;
-      }
+    if (!isWidth) {
+      changeWidth = defaulWidth;
+      isWidth = true;
+
+      widthAddInterest = (defaulWidth / 5) - 0.55;
 
       if (filledBoxes <= 8 && displayElement[index] == '' && end.isEmpty) {
         if (oTurn) {
@@ -44,11 +44,11 @@ class TappedProvider with ChangeNotifier {
         String response = counterRepo.checkWinner(displayElement, filledBoxes);
         if (response == "X") {
           xScore++;
-          end = "[ X ] KAZANDI Oyun Bitti...";
+          end = "[ X ] Kazandı Oyun Bitti...";
           changeWidth += widthAddInterest;
         } else if (response == "O") {
           oScore++;
-          end = "[ O ] KAZANDI Oyun Bitti...";
+          end = "[ O ] Kazandı Oyun Bitti...";
           changeWidth -= widthAddInterest;
         } else {
           end = "";
@@ -60,8 +60,11 @@ class TappedProvider with ChangeNotifier {
 
   void clean(bool isClean) {
     index = 0;
-    isClean ? oScore = 0 : null;
-    isClean ? xScore = 0 : null;
+    if (isClean) {
+      oScore = 0;
+      xScore = 0;
+      isWidth = false;
+    }
     end = "";
     displayElement = ['', '', '', '', '', '', '', '', ''];
     oTurn = false;

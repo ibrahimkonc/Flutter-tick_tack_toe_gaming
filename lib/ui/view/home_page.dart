@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import '../providers/counter_provider.dart';
+import '../providers/tapped_provider.dart';
 import 'end_gaming_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
             children: [
               Container(
                 height: 20,
-                color: Color.fromARGB(255, 187, 63, 63),
+                color: const Color.fromARGB(255, 187, 63, 63),
                 width: boyut.width,
                 // decoration: BoxDecoration(
                 //   border: Border.all(color: Colors.black, width: 0.1),
@@ -40,8 +41,8 @@ class HomePage extends StatelessWidget {
                             : tappedProvider.changeWidth) /
                         2,
                     height: 20,
-                    decoration:
-                        BoxDecoration(color: Color.fromARGB(255, 3, 165, 0)),
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 3, 165, 0)),
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.fastOutSlowIn,
                   );
@@ -55,18 +56,26 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.only(right: 50),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Player X',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: !tappedProvider.oTurn
-                                ? Colors.greenAccent
-                                : Colors.white),
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 3, 165, 0),
+                            )),
+                        child: Text(
+                          'Player X',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: !tappedProvider.oTurn
+                                  ? const Color.fromARGB(255, 255, 242, 124)
+                                  : Colors.white),
+                        ),
                       ),
                       Text(
                         tappedProvider.xScore.toString(),
@@ -77,17 +86,25 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.only(left: 50),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Player O',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: tappedProvider.oTurn
-                                  ? Colors.greenAccent
-                                  : Colors.white)),
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 187, 63, 63),
+                            )),
+                        child: Text('Player O',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: tappedProvider.oTurn
+                                    ? const Color.fromARGB(255, 255, 242, 124)
+                                    : Colors.white)),
+                      ),
                       Text(
                         tappedProvider.oScore.toString(),
                         style:
@@ -109,16 +126,16 @@ class HomePage extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       if (tappedProvider.filledBoxes <= 8 &&
-                          tappedProvider.displayElement[index] == '' &&
                           tappedProvider.end.isEmpty) {
                         tappedProvider.index = index;
                         tappedProvider.tapped();
+                        if (tappedProvider.end.isNotEmpty) {
+                          _showDrawDialog(context, tappedProvider.end);
+                        }
                       } else {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EndGamingPage(data: tappedProvider.end)));
+                        if (tappedProvider.end.isNotEmpty) {
+                          _showDrawDialog(context, tappedProvider.end);
+                        }
                       }
                     },
                     child: Container(
@@ -148,7 +165,7 @@ class HomePage extends StatelessWidget {
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(10),
-                      backgroundColor: Colors.green),
+                      backgroundColor: Color.fromARGB(151, 7, 18, 167)),
                   onPressed: () {
                     tappedProvider.clean(false);
                   }, //() => counterProvider.incrementCounter(),
@@ -162,7 +179,7 @@ class HomePage extends StatelessWidget {
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(10),
-                      backgroundColor: const Color.fromARGB(255, 175, 76, 76)),
+                      backgroundColor: Color.fromARGB(164, 255, 193, 7)),
                   onPressed: () {
                     tappedProvider.clean(true);
                   }, //() => counterProvider.incrementCounter(),
@@ -172,30 +189,54 @@ class HomePage extends StatelessWidget {
                   ),
                   icon: const Icon(Icons.refresh),
                 ),
-                // const SizedBox(height: 10),
-                // ElevatedButton.icon(
-                //   style: ElevatedButton.styleFrom(
-                //       padding: const EdgeInsets.all(10),
-                //       backgroundColor: Color.fromARGB(255, 204, 157, 40)),
-                //   onPressed: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) =>
-                //                 EndGamingPage(data: tappedProvider.end)));
-                //   }, //() => counterProvider.incrementCounter(),
-                //   label: const Text(
-                //     "Oyun Bitti",
-                //     style: TextStyle(fontSize: 18),
-                //   ),
-                //   icon: const Icon(Icons.home),
-                // ),
-                //const Spacer(),
               ],
             ),
           )
         ],
       ),
     );
+  }
+
+  void _showDrawDialog(BuildContext context, String data) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Column(
+              children: [
+                SizedBox(
+                  child: LottieBuilder.asset("assets/lottie/winner.json"),
+                  height: 200,
+                ),
+                Text(data),
+              ],
+            ),
+            actions: [
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(width: 2, color: Colors.black),
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.play_arrow, size: 50),
+                    color: Colors.pinkAccent,
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  EndGamingPage(data: data)));
+                    },
+                    splashColor: Colors.greenAccent,
+                    iconSize: 50,
+                  ),
+                ),
+              )
+            ],
+          );
+        });
   }
 }
