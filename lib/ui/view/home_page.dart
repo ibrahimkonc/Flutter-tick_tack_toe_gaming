@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import '../providers/tapped_provider.dart';
 import 'end_gaming_page.dart';
-
+  
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 

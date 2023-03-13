@@ -31,7 +31,7 @@ class CheckWinnerRepository {
     if (displayElement[2] == displayElement[5] &&
         displayElement[2] == displayElement[8] &&
         displayElement[2] != '') {
-      return displayElement[6];
+      return displayElement[2];
     }
 
     // Checking Diagonal
