@@ -45,7 +45,7 @@ class CheckWinnerRepository {
         displayElement[2] != '') {
       return displayElement[2];
     } else if (filledBoxes == 9) {
-      return "";
+      return "XO";
     } else {
       return "";
     }

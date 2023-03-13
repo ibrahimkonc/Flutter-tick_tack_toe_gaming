@@ -40,7 +40,7 @@ class EndGamingPage extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Color.fromARGB(157, 255, 255, 255),
+                  color: const Color.fromARGB(157, 255, 255, 255),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(width: 2, color: Colors.black)),
               margin: const EdgeInsets.only(
@@ -90,21 +90,29 @@ class EndGamingPage extends StatelessWidget {
                 ],
               ),
             ),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(10),
-                  backgroundColor: Color.fromARGB(151, 7, 18, 167)),
-              onPressed: () {
-                tappedProvider.clean(false);
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomePage()));
-              }, //() => counterProvider.incrementCounter(),
-              label: const Text(
-                "Oynamaya Devam",
-                style: TextStyle(fontSize: 18),
+            if (!(tappedProvider.xScore == 5 || tappedProvider.oScore == 5))
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(10),
+                    backgroundColor: const Color.fromARGB(151, 7, 18, 167)),
+                onPressed: () {
+                  if (tappedProvider.xScore == 5 ||
+                      tappedProvider.oScore == 5) {
+                    null;
+                  } else {
+                    tappedProvider.clean(false);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()));
+                  }
+                }, //() => counterProvider.incrementCounter(),
+                label: const Text(
+                  "Oynamaya Devam",
+                  style: TextStyle(fontSize: 18),
+                ),
+                icon: const Icon(Icons.refresh),
               ),
-              icon: const Icon(Icons.refresh),
-            ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
@@ -113,14 +121,14 @@ class EndGamingPage extends StatelessWidget {
               onPressed: () {
                 tappedProvider.clean(true);
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomePage()));
+                    MaterialPageRoute(builder: (context) => const HomePage()));
               }, //() => counterProvider.incrementCounter(),
               label: const Text(
                 "Tekrar Oyna",
                 style: TextStyle(fontSize: 18),
               ),
               icon: const Icon(Icons.refresh),
-            ),
+            )
           ],
         ),
       ),

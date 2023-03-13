@@ -162,19 +162,20 @@ class HomePage extends StatelessWidget {
                   style: const TextStyle(fontSize: 20),
                 ),
                 const SizedBox(height: 25),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(10),
-                      backgroundColor: Color.fromARGB(151, 7, 18, 167)),
-                  onPressed: () {
-                    tappedProvider.clean(false);
-                  }, //() => counterProvider.incrementCounter(),
-                  label: const Text(
-                    "Paneli temizle",
-                    style: TextStyle(fontSize: 18),
+                if (!(tappedProvider.xScore == 5 || tappedProvider.oScore == 5))
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(10),
+                        backgroundColor: Color.fromARGB(151, 7, 18, 167)),
+                    onPressed: () {
+                      tappedProvider.clean(false);
+                    }, //() => counterProvider.incrementCounter(),
+                    label: const Text(
+                      "Paneli temizle",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    icon: const Icon(Icons.refresh),
                   ),
-                  icon: const Icon(Icons.refresh),
-                ),
                 const SizedBox(height: 10),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(

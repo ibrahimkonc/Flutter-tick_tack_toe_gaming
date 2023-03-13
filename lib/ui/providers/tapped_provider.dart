@@ -29,41 +29,43 @@ class TappedProvider with ChangeNotifier {
     if (!isWidth) {
       changeWidth = defaulWidth;
       isWidth = true;
+    }
 
-      widthAddInterest = (defaulWidth / 5) - 0.55;
+    widthAddInterest = (defaulWidth / 5) - 0.55;
 
-      if (filledBoxes <= 8 && displayElement[index] == '' && end.isEmpty) {
-        if (oTurn) {
-          displayElement[index] = 'O';
-          filledBoxes++;
-        } else if (!oTurn) {
-          displayElement[index] = 'X';
-          filledBoxes++;
-        }
-        oTurn = !oTurn;
-        String response = counterRepo.checkWinner(displayElement, filledBoxes);
-        if (response == "X") {
-          xScore++;
-          end = "[ X ] Kazandı Oyun Bitti...";
-          changeWidth += widthAddInterest;
-        } else if (response == "O") {
-          oScore++;
-          end = "[ O ] Kazandı Oyun Bitti...";
-          changeWidth -= widthAddInterest;
-        } else {
-          end = "";
-        }
+    if (filledBoxes <= 8 && displayElement[index] == '' && end.isEmpty) {
+      if (oTurn) {
+        displayElement[index] = 'O';
+        filledBoxes++;
+      } else if (!oTurn) {
+        displayElement[index] = 'X';
+        filledBoxes++;
+      }
+      oTurn = !oTurn;
+      String response = counterRepo.checkWinner(displayElement, filledBoxes);
+      if (response == "X") {
+        xScore++;
+        end = "[ X ] Kazandı Oyun Bitti...";
+        changeWidth += widthAddInterest;
+      } else if (response == "O") {
+        oScore++;
+        end = "[ O ] Kazandı Oyun Bitti...";
+        changeWidth -= widthAddInterest;
+      } else if (response == "XO") {
+        end = "Berabere Oyun Bitti...";
       }
       notifyListeners();
-    } else {}
+    }
   }
 
   void clean(bool isClean) {
     index = 0;
+
     if (isClean) {
       oScore = 0;
       xScore = 0;
       isWidth = false;
+      changeWidth = defaulWidth;
     }
     end = "";
     displayElement = ['', '', '', '', '', '', '', '', ''];
