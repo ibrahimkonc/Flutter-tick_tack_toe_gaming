@@ -12,11 +12,11 @@ class EndGamingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tappedProvider = Provider.of<TappedProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("SONUÇ"),
+        leading: Container(),
       ),
       body: Container(
         decoration: const BoxDecoration(
