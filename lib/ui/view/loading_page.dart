@@ -12,18 +12,23 @@ class LoadingPage extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Hoşgeldiniz", style: TextStyle(fontSize: 45)),
+          Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                    color: Colors.black, width: 4.0, style: BorderStyle.solid),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Tick Tac Toe", style: TextStyle(fontSize: 35)),
+              )),
           const SizedBox(
             height: 50,
           ),
           SizedBox(
-            child: LottieBuilder.asset("assets/lottie/loading.json"),
             height: 180,
+            child: LottieBuilder.asset("assets/lottie/loading.json"),
           ),
-          const SizedBox(
-            height: 50,
-          ),
-          const Text("Tick Tack Toe", style: TextStyle(fontSize: 35)),
           const SizedBox(
             height: 50,
           ),

@@ -19,12 +19,6 @@ class EndGamingPage extends StatelessWidget {
         leading: Container(),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(colors: [
-            Colors.grey,
-            Colors.black,
-          ], radius: 0.85, focal: Alignment.center),
-        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

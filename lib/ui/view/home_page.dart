@@ -73,8 +73,8 @@ class HomePage extends StatelessWidget {
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: !tappedProvider.oTurn
-                                  ? const Color.fromARGB(255, 255, 242, 124)
-                                  : Colors.white),
+                                  ? Color.fromARGB(255, 46, 209, 68)
+                                  : null),
                         ),
                       ),
                       Text(
@@ -102,8 +102,8 @@ class HomePage extends StatelessWidget {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: tappedProvider.oTurn
-                                    ? const Color.fromARGB(255, 255, 242, 124)
-                                    : Colors.white)),
+                                    ? Color.fromARGB(255, 46, 209, 68)
+                                    : null)),
                       ),
                       Text(
                         tappedProvider.oScore.toString(),
@@ -139,13 +139,18 @@ class HomePage extends StatelessWidget {
                       }
                     },
                     child: Container(
+                      margin: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white)),
+                          border: Border.all(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              width: 1.5)),
                       child: Center(
                         child: Text(
                           tappedProvider.displayElement[index].toString(),
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 35),
+                          style: const TextStyle(fontSize: 35),
                         ),
                       ),
                     ),
